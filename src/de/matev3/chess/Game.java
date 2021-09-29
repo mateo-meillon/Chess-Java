@@ -1,5 +1,6 @@
 package de.matev3.chess;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ public class Game {
 
     private Scanner scanner;
     private ArrayList<Figure> taken = new ArrayList<>();
+    private int roundNumber = 1;
     private boolean white = true;
     private Figure[][] field = new Figure[][]{
             {new Figure("♜", "black"), new Figure("♞", "black"), new Figure("♝", "black"), new Figure("♛", "black"), new Figure("♚", "black"), new Figure("♝", "black"), new Figure("♞", "black"), new Figure("♜", "black")},
@@ -30,7 +32,10 @@ public class Game {
 
     public void nextMove() {
         scanner = new Scanner(System.in);
-        System.out.println("\n\nNext Move:");
+        if (roundNumber < 2)
+            System.out.println("\n\nNext Move (e.g. 'e7 to e5'):");
+        else
+            System.out.println("\n\nNext Move:");
         String from = scanner.next(); scanner.next();
         String to = scanner.next();
 
@@ -60,12 +65,14 @@ public class Game {
         }
 
         white = !white;
+        roundNumber++;
         printField();
         nextMove();
     }
 
     public void printField() {
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println(Color.WHITE + "\tTurn number " + roundNumber);
         if (white)
             System.out.println(Color.RESET + "\tWhite's turn\n");
         else
